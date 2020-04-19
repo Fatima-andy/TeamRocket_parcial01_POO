@@ -14,36 +14,38 @@ public class Main {
         int num = 0;
 
         int op;
-      do{
-          System.out.println("1)Agregar empleado\n2)Despedir empleado\n3)Ver lista de empleados\n4)Calcular sueldo\n" +
-                  "5)Mostrar totales\n0) Salir");
-          op = scan.nextInt(); scan.nextLine();
+        do {
+            System.out.println("1)Agregar empleado\n2)Despedir empleado\n3)Ver lista de empleados\n4)Calcular sueldo\n" +
+                    "5)Mostrar totales\n0) Salir");
+            op = scan.nextInt();
+            scan.nextLine();
+            if (op == 1 || op == 2 || op == 3 || op == 4 || op == 5 || op == 0) {
+                switch (op) {
+                    case 1:
+                        System.out.print("Nombre del empleado: ");
+                        String nombre = scan.nextLine();
+                        System.out.print("Puesto del empleado: ");
+                        String puesto = scan.nextLine();
+                        System.out.print("Salario del empleado: ");
+                        double salario = scan.nextDouble();
+                        scan.nextLine();
 
-          switch(op){
-              case 1:
-                  System.out.print("Nombre del empleado: ");
-                  String nombre = scan.nextLine();
-                  System.out.print("Puesto del empleado: ");
-                  String puesto = scan.nextLine();
-                  System.out.print("Salario del empleado: ");
-                  double salario = scan.nextDouble();  scan.nextLine();
+                        empresa.addEmpleado(new Test(nombre, puesto, salario, num));
 
-                  empresa.addEmpleado(new Test(nombre,puesto,salario,num));
+                        break;
+                    case 2:
+                        System.out.println("Nombre del empleado a despedir: ");
+                        String nombreEmp = scan.nextLine();
 
-                  break;
-              case 2:
-                  System.out.println("Nombre del empleado a despedir: ");
-                  String nombreEmp = scan.nextLine();
-
-                  empresa.quitEmpleado(nombreEmp);
-                  break;
-              case 3:
-                  System.out.println(empresa.getPlanilla());
-                  break;
-
-
-          }
-
-      }while(op != 0);
+                        empresa.quitEmpleado(nombreEmp);
+                        break;
+                    case 3:
+                        System.out.println(empresa.getPlanilla());
+                        break;
+                }
+            } else {
+                System.out.println("--------Ingrese una opcion valida--------");
+            }
+        } while (op != 0);
     }
 }
