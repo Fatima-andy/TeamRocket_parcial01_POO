@@ -8,10 +8,9 @@ public abstract class Empleado {
     Scanner scan = new Scanner(System.in);
 
 
-    protected String nombre,puesto;
+    protected String nombre, puesto;
     protected double salario;
     protected List<Documento> ListD = new ArrayList<>();
-    Scanner scan = new Scanner(System.in);
 
     public Empleado(String nombre, String puesto, double salario) {
         this.nombre = nombre;
@@ -31,11 +30,11 @@ public abstract class Empleado {
         return ListD;
     }
 
-    public void AddDocument(Documento añadir){
+    public void AddDocument(Documento añadir) {
         ListD.add(añadir);
     }
 
-    public void RemoveDocument(String nombre){
+    public void RemoveDocument(String nombre) {
         ListD.removeIf(obj -> obj.getNombreD().equalsIgnoreCase(nombre));
     }
 

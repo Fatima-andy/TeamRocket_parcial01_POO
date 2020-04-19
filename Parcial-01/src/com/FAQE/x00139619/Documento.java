@@ -9,7 +9,6 @@ public class Documento {
     }
 
     public String getNombreD() {
-        //nombreD = nombreD + ".txt";
         return nombreD;
     }
 
