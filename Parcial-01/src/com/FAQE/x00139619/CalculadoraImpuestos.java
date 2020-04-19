@@ -1,12 +1,12 @@
 package com.FAQE.x00139619;
 
 public final class CalculadoraImpuestos {
-    private double totalRenta, totalISSS, totalAFP;
+    private static double totalRenta, totalISSS, totalAFP;
 
     private CalculadoraImpuestos() {
     }
 
-    public double calcularPago(Empleado colaborador) {
+    public static double calcularPago(Empleado colaborador) {
         double salarioNeto = colaborador.salario,
                 salarioRestante, pago = 0,
                 auxAFP, auxISSS, auxRenta = 0;
@@ -23,14 +23,18 @@ public final class CalculadoraImpuestos {
             else if (salarioRestante >= 2038.11)
                 auxRenta = 0.3 * (salarioRestante - 2038.10) + 288.57;
             pago = salarioRestante - auxRenta;
+            totalISSS += auxISSS;
+            totalAFP += auxAFP;
+            totalRenta += auxRenta;
         } else if (colaborador instanceof ServicioProfesional) {
             auxRenta = 0.1 * salarioNeto;
             pago = salarioNeto - auxRenta;
         }
+
         return pago;
     }
 
-    public String mostrarTotales(){
+    public static String mostrarTotales(){
         String AFP = String.format("%.2f",totalAFP);
         String ISSS = String.format("%.2f",totalISSS);
         String renta = String.format("%.2f",totalRenta);
