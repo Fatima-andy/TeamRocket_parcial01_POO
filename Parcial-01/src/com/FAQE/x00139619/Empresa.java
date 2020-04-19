@@ -16,17 +16,8 @@ public class Empresa {
     public String getNombre() { return nombre; }
     public List<Empleado> getPlanilla() { return  Planilla; }
 
-    public void addEmpleado(){
-
-       System.out.print("Nombre del empleado: ");
-       String nombre = scan.nextLine();
-       System.out.print("Puesto del empleado: ");
-       String puesto = scan.nextLine();
-       System.out.print("Salario del empleado: ");
-       double salario = scan.nextDouble();  scan.nextLine();
-       int num = 1;
-
-       Planilla.add(new Test(nombre,puesto,salario,num));
+    public void addEmpleado(Empleado em){
+       Planilla.add(em);
     }
 
     public void quitEmpleado(String name){

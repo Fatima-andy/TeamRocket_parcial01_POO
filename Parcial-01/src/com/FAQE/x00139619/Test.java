@@ -17,9 +17,6 @@ public class Test extends Empleado {
     public void setNumeroEmpleado(int numeroEmpleado) { this.numeroEmpleado = numeroEmpleado; }
 
     @Override
-    public void empleado(String nombr, String puesto, double salario) {}
-
-    @Override
     public String toString() {
         return "Test: " +
                 "\nnumeroEmpleado: " + numeroEmpleado +

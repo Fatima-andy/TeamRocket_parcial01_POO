@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Empleado {
-    protected String nombre, puesto, numero;
+    Scanner scan = new Scanner(System.in);
+
+
+    protected String nombre,puesto;
     protected double salario;
     protected List<Documento> ListD = new ArrayList<>();
     Scanner scan = new Scanner(System.in);
@@ -28,15 +31,12 @@ public abstract class Empleado {
         return ListD;
     }
 
-    public void AddDocument() {
-        ListD.add(new Documento(nombre, numero));
+    public void AddDocument(Documento añadir){
+        ListD.add(añadir);
     }
 
-    public void RemoveDocument() {
-        System.out.println("nombre del documento a eliminar: ");
-        String nom = scan.nextLine();
-
-        ListD.removeIf(obj -> nombre.equalsIgnoreCase(nom));
+    public void RemoveDocument(String nombre){
+        ListD.removeIf(obj -> obj.getNombreD().equalsIgnoreCase(nombre));
     }
 
     public double getSalario() {
