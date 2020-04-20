@@ -3,7 +3,7 @@ package com.FAQE.x00139619;
 public class Documento {
     private String nombreD, numeroD;
 
-    public Documento(String nombreD, String numero) {
+    public Documento(String nombreD, String numeroD) {
         this.nombreD = nombreD;
         this.numeroD = numeroD;
     }
