@@ -9,11 +9,21 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        boolean valid = false;
+        Empresa empresa = new Empresa("");
+        do{
+            try{
+                System.out.print("Nombre de la empresa: ");
+                String nombE = scan.nextLine();
+                if (nombE.equals(""))
+                    throw new EmptyStringOnInputException();
+                 empresa = new Empresa(nombE);
+                valid = true;
+            }catch (EmptyStringOnInputException ex){
+                System.out.println("No puede dejar en blanco.");
+            }
+        }while(!valid);
 
-        System.out.print("Nombre de la empresa: ");
-        String nombE = scan.nextLine();
-
-        Empresa empresa = new Empresa(nombE);
         int op;
 
         String nombre, puesto, documento, numeroDoc;
