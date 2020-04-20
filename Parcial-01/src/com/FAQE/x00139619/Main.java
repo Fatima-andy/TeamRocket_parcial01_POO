@@ -14,8 +14,11 @@ public class Main {
         String nombE = scan.nextLine();
 
         Empresa empresa = new Empresa(nombE);
-        int num = 0;
         int op = -1;
+
+        String nombre, puesto,documento, numeroDoc;
+        double salario;
+        int MC, extencion;
 
         do {
             try {
@@ -26,15 +29,62 @@ public class Main {
                 scan.nextLine();
                 switch (op) {
                     case 1:
-                        System.out.print("Nombre del empleado: ");
-                        String nombre = scan.nextLine();
-                        System.out.print("Puesto del empleado: ");
-                        String puesto = scan.nextLine();
-                        System.out.print("Salario del empleado: ");
-                        double salario = scan.nextDouble();
+                        System.out.println("Ingrese que tipo de empleado desea contratar:" +
+                                "\n1. Plaza fija \n2. Servicio Profecional");
+                        int op2 = scan.nextInt();
                         scan.nextLine();
+                        switch (op2) {
+                            case 1:
+                                System.out.print("Nombre del empleado: ");
+                                nombre = scan.nextLine();
+                                System.out.print("Puesto del empleado: ");
+                                puesto = scan.nextLine();
+                                System.out.print("Salario del empleado: ");
+                                salario = scan.nextDouble();
+                                scan.nextLine();
+                                System.out.print("Extencion:");
+                                extencion = scan.nextInt();
+                                scan.nextLine();
 
-                        empresa.addEmpleado(new PlazaFija(nombre, puesto, salario, num));
+                                PlazaFija plaz = new PlazaFija(nombre, puesto, salario, extencion);
+
+                                System.out.println("Documento: ");
+                                documento = scan.nextLine();
+                                System.out.println("Numero: ");
+                                numeroDoc = scan.nextLine();
+
+                                plaz.getDocumentos().add(new Documento(documento, numeroDoc));
+                                empresa.addEmpleado(plaz);
+
+
+                                break;
+                            case 2:
+                                System.out.print("Nombre del empleado: ");
+                                nombre = scan.nextLine();
+                                System.out.print("Puesto del empleado: ");
+                                puesto = scan.nextLine();
+                                System.out.print("Salario del empleado: ");
+                                salario = scan.nextDouble();
+                                scan.nextLine();
+                                System.out.print("Meses de contacto:");
+                                MC = scan.nextInt();
+                                scan.nextLine();
+
+                                ServicioProfesional servi = new ServicioProfesional(nombre, puesto, salario, MC);
+
+                                System.out.println("Documento: ");
+                                documento = scan.nextLine();
+                                System.out.println("Numero: ");
+                                numeroDoc = scan.nextLine();
+
+                                servi.getDocumentos().add(new Documento(documento, numeroDoc));
+                                empresa.addEmpleado(servi);
+
+
+                                empresa.addEmpleado(new ServicioProfesional(nombre, puesto, salario, MC));
+                                break;
+                            default:throw new InputMismatchException("Opción invalida.");
+                        }
 
                         break;
                     case 2:

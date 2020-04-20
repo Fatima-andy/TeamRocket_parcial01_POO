@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Empresa {
+
     private List<Empleado> Planilla = new ArrayList();
+    private List<Documento> Doc = new ArrayList<>();
     private String nombre;
 
     public Empresa(String nombre) {
@@ -32,8 +34,6 @@ public class Empresa {
                 System.out.println("El empleado no existe, ");
             }
         }
-        //Planilla.removeIf(obj -> obj.getNombre().equalsIgnoreCase(name));    Me parecia inesesario revisar en 2
-        // si existia o no el nombre. No me entra como logroarlo con un forEach
     }
 
 }
