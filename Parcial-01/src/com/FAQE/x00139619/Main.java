@@ -11,20 +11,20 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         boolean valid = false;
         Empresa empresa = new Empresa("");
-        do{
-            try{
+        do {
+            try {
                 System.out.print("Nombre de la empresa: ");
                 String nombE = scan.nextLine();
                 if (nombE.equals(""))
                     throw new EmptyStringOnInputException();
-                 empresa = new Empresa(nombE);
+                empresa = new Empresa(nombE);
                 valid = true;
-            }catch (EmptyStringOnInputException ex){
+            } catch (EmptyStringOnInputException ex) {
                 System.out.println("No puede dejar en blanco.");
             }
-        }while(!valid);
+        } while (!valid);
 
-        int op;
+        int op = -1;
 
         String nombre, puesto, documento, numeroDoc;
         double salario;
@@ -47,8 +47,12 @@ public class Main {
                             case 1:
                                 System.out.print("Nombre del empleado: ");
                                 nombre = scan.nextLine();
+                                if (nombre.equals(""))
+                                    throw new EmptyStringOnInputException("nombre de empleado");
                                 System.out.print("Puesto del empleado: ");
                                 puesto = scan.nextLine();
+                                if (puesto.equals(""))
+                                    throw new EmptyStringOnInputException("puesto del empleado");
                                 System.out.print("Salario del empleado: ");
                                 salario = scan.nextDouble();
                                 if (salario < 0) {
@@ -63,8 +67,12 @@ public class Main {
 
                                     System.out.println("Documento: ");
                                     documento = scan.nextLine();
+                                    if (documento.equals(""))
+                                        throw new EmptyStringOnInputException("nombre del documento");
                                     System.out.println("Numero: ");
                                     numeroDoc = scan.nextLine();
+                                    if (numeroDoc.equals(""))
+                                        throw new EmptyStringOnInputException("numero del documento");
 
                                     plaz.getDocumentos().add(new Documento(documento, numeroDoc));
                                     empresa.addEmpleado(plaz);
@@ -73,8 +81,12 @@ public class Main {
                             case 2:
                                 System.out.print("Nombre del empleado: ");
                                 nombre = scan.nextLine();
+                                if (nombre.equals(""))
+                                    throw new EmptyStringOnInputException("nombre del empleado");
                                 System.out.print("Puesto del empleado: ");
                                 puesto = scan.nextLine();
+                                if (puesto.equals(""))
+                                    throw new EmptyStringOnInputException("puesto del empleado");
                                 System.out.print("Salario del empleado: ");
                                 salario = scan.nextDouble();
 
@@ -90,8 +102,12 @@ public class Main {
 
                                     System.out.println("Documento: ");
                                     documento = scan.nextLine();
+                                    if (documento.equals(""))
+                                        throw new EmptyStringOnInputException("nombre del documento");
                                     System.out.println("Numero: ");
                                     numeroDoc = scan.nextLine();
+                                    if (numeroDoc.equals(""))
+                                        throw new EmptyStringOnInputException("numero del documento");
 
                                     servi.getDocumentos().add(new Documento(documento, numeroDoc));
                                     empresa.addEmpleado(servi);
@@ -112,8 +128,40 @@ public class Main {
                         }
                         System.out.println("Nombre del empleado a despedir: ");
                         String nombreEmp = scan.nextLine();
+                        if (nombreEmp.equals(""))
+                            throw new EmptyStringOnInputException("nombre del empleado");
+                        List<Empleado> auxD = new ArrayList<>();
+                        for (Empleado c: empresa.getPlanilla()) {
+                            if (c.nombre.equalsIgnoreCase(nombreEmp))
+                                auxD.add(c);
+                        }
+                        if (auxD.size() == 0)
+                            System.out.println("Empleado no encontrado.");
+                        else if (auxD.size() >= 2){
+                            System.out.println("Se ha encontrado más de un" +
+                                    " colaborador con el mismo nombre.");
+                            int j = 1;
+                            for (Empleado c : auxD) {
+                                System.out.println(j++ + c.toString() + "\n\n");
+                            }
+                            boolean contin = false;
+                            do {
+                                try {
+                                    System.out.println("Elija el colaborador por su correlativo: ");
+                                    int select = scan.nextInt();
+                                    scan.nextLine();
+                                    if (select >= 1 && select <= j) {
+                                        empresa.quitEmpleado(nombreEmp);
+                                        contin = true;
+                                    } else {
+                                        System.out.println("Elija un valor valido.");
+                                    }
+                                } catch (java.util.InputMismatchException ex) {
+                                    System.out.println("Invalid Input");
+                                }
+                            } while (!contin);
+                        }
 
-                        empresa.quitEmpleado(nombreEmp);
                         break;
                     case 3:
                         if (empresa.getPlanilla().isEmpty()) {
@@ -131,13 +179,20 @@ public class Main {
                         }
                         System.out.println("Ingrese el nombre del empleado a consultar:");
                         String colaborador = scan.nextLine();
+                        if (colaborador.equals(""))
+                            throw new EmptyStringOnInputException("nombre del empleado");
                         List<Empleado> aux = new ArrayList<>();
                         for (Empleado c : empresa.getPlanilla()) {
                             if (c.nombre.equalsIgnoreCase(colaborador))
                                 aux.add(c);
                         }
-                        if (aux.size() == 0)
+                        if (aux.size() == 0) {
                             System.out.println("Empleado no encontrado");
+                        }else if (aux.size() == 1) {
+                            double pago = CalculadoraImpuestos.calcularPago(aux.get(0));
+                            System.out.println("Salario neto: $" + aux.get(0).getSalario() +
+                                    "\nSalario con descuentos: $" + pago);
+                        }
                         else if (aux.size() >= 2) {
                             System.out.println("Se ha encontrado más de un" +
                                     " colaborador con el mismo nombre.");
@@ -145,24 +200,26 @@ public class Main {
                             for (Empleado c : aux) {
                                 System.out.println(i++ + c.toString() + "\n\n");
                             }
-                            try {
-                                boolean cont = false;
-                                do {
-                                    System.out.println("Elija el colaborador por su numero:");
-                                    int select = scan.nextInt(); scan.nextLine();
-                                    if (select >=1 && select <= i){
 
-                                    } else {
+                            boolean cont = false;
+                            do {
+                                try {
+                                    System.out.println("Elija el colaborador por su correlativo: ");
+                                    int select = scan.nextInt();
+                                    scan.nextLine();
+                                    if (select >= 1 && select <= i) {
+                                        double pago = CalculadoraImpuestos.calcularPago(aux.get(i - 1));
+                                        System.out.println("Salario neto: $" + aux.get(i - 1).getSalario() +
+                                                "\nSalario con descuentos: $" + pago);
                                         cont = true;
+                                    } else {
+                                        System.out.println("Elija un valor valido.");
                                     }
-                                } while (!cont);
-                            } catch (java.util.InputMismatchException ex) {
+                                } catch (java.util.InputMismatchException ex) {
+                                    System.out.println("Invalid Input");
+                                }
+                            } while (!cont);
 
-                            }
-                        } else if (aux.size() == 1) {
-                            double pago = CalculadoraImpuestos.calcularPago(aux.get(0));
-                            System.out.println("Salario neto: $" + aux.get(0).getSalario() +
-                                    "\nSalario con descuentos: $" + pago);
                         }
                         break;
                     case 5:
@@ -178,6 +235,8 @@ public class Main {
                 System.out.println("Selección invalida");
                 scan.nextLine();
                 op = -1;
+            } catch (EmptyStringOnInputException ex) {
+                System.out.println("No puede dejar " + ex.getMessage() + "en blanco.");
             }
         } while (op != 0);
     }
