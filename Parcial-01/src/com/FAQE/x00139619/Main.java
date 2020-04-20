@@ -41,22 +41,24 @@ public class Main {
                                 puesto = scan.nextLine();
                                 System.out.print("Salario del empleado: ");
                                 salario = scan.nextDouble();
-                                scan.nextLine();
-                                System.out.print("Extencion:");
-                                extencion = scan.nextInt();
-                                scan.nextLine();
+                                if (salario < 0) {
+                                    System.out.println("Ingrese un salario valido, vuelva a ingresar el empleado.");
+                                } else {
+                                    scan.nextLine();
+                                    System.out.print("Extencion:");
+                                    extencion = scan.nextInt();
+                                    scan.nextLine();
 
-                                PlazaFija plaz = new PlazaFija(nombre, puesto, salario, extencion);
+                                    PlazaFija plaz = new PlazaFija(nombre, puesto, salario, extencion);
 
-                                System.out.println("Documento: ");
-                                documento = scan.nextLine();
-                                System.out.println("Numero: ");
-                                numeroDoc = scan.nextLine();
+                                    System.out.println("Documento: ");
+                                    documento = scan.nextLine();
+                                    System.out.println("Numero: ");
+                                    numeroDoc = scan.nextLine();
 
-                                plaz.getDocumentos().add(new Documento(documento, numeroDoc));
-                                empresa.addEmpleado(plaz);
-
-
+                                    plaz.getDocumentos().add(new Documento(documento, numeroDoc));
+                                    empresa.addEmpleado(plaz);
+                                }
                                 break;
                             case 2:
                                 System.out.print("Nombre del empleado: ");
@@ -65,23 +67,28 @@ public class Main {
                                 puesto = scan.nextLine();
                                 System.out.print("Salario del empleado: ");
                                 salario = scan.nextDouble();
-                                scan.nextLine();
-                                System.out.print("Meses de contacto:");
-                                MC = scan.nextInt();
-                                scan.nextLine();
 
-                                ServicioProfesional servi = new ServicioProfesional(nombre, puesto, salario, MC);
+                                if (salario < 0) {
+                                    System.out.println("Ingrese un salario valido, vuelva a ingresar el empleado.");
+                                } else {
+                                    scan.nextLine();
+                                    System.out.print("Meses de contacto:");
+                                    MC = scan.nextInt();
+                                    scan.nextLine();
 
-                                System.out.println("Documento: ");
-                                documento = scan.nextLine();
-                                System.out.println("Numero: ");
-                                numeroDoc = scan.nextLine();
+                                    ServicioProfesional servi = new ServicioProfesional(nombre, puesto, salario, MC);
 
-                                servi.getDocumentos().add(new Documento(documento, numeroDoc));
-                                empresa.addEmpleado(servi);
+                                    System.out.println("Documento: ");
+                                    documento = scan.nextLine();
+                                    System.out.println("Numero: ");
+                                    numeroDoc = scan.nextLine();
 
+                                    servi.getDocumentos().add(new Documento(documento, numeroDoc));
+                                    empresa.addEmpleado(servi);
 
-                                empresa.addEmpleado(new ServicioProfesional(nombre, puesto, salario, MC));
+                                    empresa.addEmpleado(new ServicioProfesional(nombre, puesto, salario, MC));
+                                }
+
                                 break;
                             default:
                                 throw new InputMismatchException("Opción invalida.");
