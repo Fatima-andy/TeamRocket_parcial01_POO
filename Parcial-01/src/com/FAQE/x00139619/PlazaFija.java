@@ -15,4 +15,14 @@ public class PlazaFija extends Empleado {
     public void setExtensión(int extensión) {
         this.extensión = extensión;
     }
+
+    @Override
+    public String toString() {
+        return "PlazaFija{" +
+                "extensión=" + extensión +
+                ", nombre='" + nombre + '\'' +
+                ", puesto='" + puesto + '\'' +
+                ", salario=" + salario +
+                '}';
+    }
 }

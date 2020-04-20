@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Empleado {
-    Scanner scan = new Scanner(System.in);
-
-
     protected String nombre, puesto;
     protected double salario;
     protected List<Documento> ListD = new ArrayList<>();
@@ -45,4 +42,5 @@ public abstract class Empleado {
     public void setSalario(double salario) {
         this.salario = salario;
     }
+
 }

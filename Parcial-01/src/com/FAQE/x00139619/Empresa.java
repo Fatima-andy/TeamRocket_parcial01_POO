@@ -35,4 +35,5 @@ public class Empresa {
         //Planilla.removeIf(obj -> obj.getNombre().equalsIgnoreCase(name));    Me parecia inesesario revisar en 2
         // si existia o no el nombre. No me entra como logroarlo con un forEach
     }
+
 }

@@ -1,6 +1,9 @@
 package com.FAQE.x00139619;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -31,7 +34,7 @@ public class Main {
                         double salario = scan.nextDouble();
                         scan.nextLine();
 
-                        empresa.addEmpleado(new Test(nombre, puesto, salario, num));
+                        empresa.addEmpleado(new PlazaFija(nombre, puesto, salario, num));
 
                         break;
                     case 2:
@@ -49,7 +52,9 @@ public class Main {
                             System.out.println("No hay empleados");
                             break;
                         }
-                        System.out.println(empresa.getPlanilla());
+                        for (Empleado emp : empresa.getPlanilla()) {
+                            System.out.println(emp.toString());
+                        }
                         break;
                     case 4:
                         if (empresa.getPlanilla().isEmpty()) {
@@ -66,7 +71,7 @@ public class Main {
                         if (aux.size() == 0)
                             System.out.println("Empleado no encontrado");
                         else if (aux.size() >= 2) {
-                            //TODO: Multiple employees with the same name.
+
                         } else if (aux.size() == 1) {
                             double pago = CalculadoraImpuestos.calcularPago(aux.get(0));
                             System.out.println("Salario neto: $" + aux.get(0).getSalario() +
@@ -76,14 +81,17 @@ public class Main {
                     case 5:
                         System.out.println(CalculadoraImpuestos.mostrarTotales());
                         break;
+                    case 0:
+                        break;
                     default:
                         throw new InputMismatchException("Opción invalida.");
                 }
-            } catch (InputMismatchException ex) {
-                //TODO: Exception handling of user inputting invalid “op”
-            } catch (NoSuchElementException ex) {
-                System.out.println(ex.getMessage());
-            } catch (Exception ex) {
+            } catch (java.util.InputMismatchException ex) {
+                if (ex.getMessage().equalsIgnoreCase("null")) {
+                    System.out.println("Selección invalida");
+                } else
+                    System.out.println(ex.getMessage());
+            } catch (java.util.NoSuchElementException ex) {
                 System.out.println(ex.getMessage());
             }
         } while (op != 0);
