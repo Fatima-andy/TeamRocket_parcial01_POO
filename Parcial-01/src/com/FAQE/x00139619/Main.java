@@ -14,9 +14,9 @@ public class Main {
         String nombE = scan.nextLine();
 
         Empresa empresa = new Empresa(nombE);
-        int op = -1;
+        int op;
 
-        String nombre, puesto,documento, numeroDoc;
+        String nombre, puesto, documento, numeroDoc;
         double salario;
         int MC, extencion;
 
@@ -83,7 +83,8 @@ public class Main {
 
                                 empresa.addEmpleado(new ServicioProfesional(nombre, puesto, salario, MC));
                                 break;
-                            default:throw new InputMismatchException("Opción invalida.");
+                            default:
+                                throw new InputMismatchException("Opción invalida.");
                         }
 
                         break;
@@ -121,7 +122,26 @@ public class Main {
                         if (aux.size() == 0)
                             System.out.println("Empleado no encontrado");
                         else if (aux.size() >= 2) {
+                            System.out.println("Se ha encontrado más de un" +
+                                    " colaborador con el mismo nombre.");
+                            int i = 1;
+                            for (Empleado c : aux) {
+                                System.out.println(i++ + c.toString() + "\n\n");
+                            }
+                            try {
+                                boolean cont = false;
+                                do {
+                                    System.out.println("Elija el colaborador por su numero:");
+                                    int select = scan.nextInt(); scan.nextLine();
+                                    if (select >=1 && select <= i){
 
+                                    } else {
+                                        cont = true;
+                                    }
+                                } while (!cont);
+                            } catch (java.util.InputMismatchException ex) {
+
+                            }
                         } else if (aux.size() == 1) {
                             double pago = CalculadoraImpuestos.calcularPago(aux.get(0));
                             System.out.println("Salario neto: $" + aux.get(0).getSalario() +
@@ -134,15 +154,13 @@ public class Main {
                     case 0:
                         break;
                     default:
-                        throw new InputMismatchException("Opción invalida.");
+                        System.out.println("Opción invalida.");
+                        break;
                 }
-            } catch (java.util.InputMismatchException ex) {
-                if (ex.getMessage().equalsIgnoreCase("null")) {
-                    System.out.println("Selección invalida");
-                } else
-                    System.out.println(ex.getMessage());
-            } catch (java.util.NoSuchElementException ex) {
-                System.out.println(ex.getMessage());
+            } catch (java.lang.NullPointerException | java.util.InputMismatchException ex) {
+                System.out.println("Selección invalida");
+                scan.nextLine();
+                op = -1;
             }
         } while (op != 0);
     }
